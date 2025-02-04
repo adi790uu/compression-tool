@@ -127,11 +127,6 @@ def deserialize_huffman_tree(data):
 
 def main():
     arguments = sys.argv[1:]
-
-    if len(arguments) != 2:
-        print("Invalid command!")
-        exit(0)
-
     if arguments[0] == "-e":
         try:
             mapping = defaultdict(int)
@@ -173,11 +168,15 @@ def main():
                     encoded_text=encoded_data, huffman_codes=reconstructed_tree
                 )
 
-                with open("text.txt", "w") as file:
+                file_name = arguments[3] if arguments[2] == "-f" else "text.txt"  # noqa
+                with open(file_name, "w") as file:
                     file.write(decoded_text)
                     file.close()
         except Exception as e:
             print(f"Error occurred while decompressing the file! error: {e}")
+
+    else:
+        print("Invalid command!")
 
 
 if __name__ == "__main__":
